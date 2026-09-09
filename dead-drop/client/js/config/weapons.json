@@ -1,0 +1,252 @@
+{
+  "rarities": {
+    "common":    { "name": "Common",    "color": "#9E9E9E", "glow": "#808080", "tier": 0 },
+    "uncommon":  { "name": "Uncommon",  "color": "#4CD137", "glow": "#2A8C2A", "tier": 1 },
+    "rare":      { "name": "Rare",      "color": "#3A7BFF", "glow": "#2A5AFF", "tier": 2 },
+    "epic":      { "name": "Epic",      "color": "#B14CFF", "glow": "#8C2AFF", "tier": 3 },
+    "legendary": { "name": "Legendary", "color": "#FFC93A", "glow": "#FFB300", "tier": 4 }
+  },
+  "ammoTypes": {
+    "light":  { "name": "Light Ammo",  "icon": "light",  "color": "#F2C94C", "pickup": 10, "maxStack": 999 },
+    "medium": { "name": "Medium Ammo", "icon": "medium", "color": "#C89B5A", "pickup": 10, "maxStack": 999 },
+    "heavy":  { "name": "Heavy Ammo",  "icon": "heavy",  "color": "#6FCF6F", "pickup": 5,  "maxStack": 999 },
+    "shells": { "name": "Shells",      "icon": "shells", "color": "#EB5757", "pickup": 5,  "maxStack": 999 },
+    "rockets":{ "name": "Rockets",     "icon": "rocket", "color": "#F2994A", "pickup": 1,  "maxStack": 12 }
+  },
+  "weapons": [
+    {
+      "id": "scar", "name": "Assault Rifle", "family": "ar", "class": "assault-rifle",
+      "model": "scar", "ammo": "medium", "magSize": 30, "fireMode": "auto",
+      "rpm": 198, "reloadTime": 1.7, "range": 70, "bulletVelocity": 850,
+      "adsFov": 62, "recoil": { "vertical": 0.55, "horizontal": 0.28, "recovery": 7.5, "kick": 0.045 },
+      "spread": { "hip": 3.2, "ads": 0.55, "moving": 2.1, "crouch": -0.4, "bloomPerShot": 0.32, "maxBloom": 3.4, "decay": 4.5 },
+      "headshotMultiplier": 2.0, "structureMultiplier": 1.0,
+      "rarities": {
+        "epic":      { "damage": 35, "weight": 3.0 },
+        "legendary": { "damage": 36, "weight": 1.4 }
+      }
+    },
+    {
+      "id": "m16", "name": "Burst Assault Rifle", "family": "ar", "class": "assault-rifle",
+      "model": "m16", "ammo": "medium", "magSize": 30, "fireMode": "burst", "burstCount": 3,
+      "burstInterval": 0.075, "burstCooldown": 0.9, "rpm": 800, "reloadTime": 2.1,
+      "range": 75, "bulletVelocity": 870, "adsFov": 60,
+      "recoil": { "vertical": 0.34, "horizontal": 0.15, "recovery": 9.0, "kick": 0.03 },
+      "spread": { "hip": 3.4, "ads": 0.35, "moving": 2.2, "crouch": -0.4, "bloomPerShot": 0.18, "maxBloom": 2.2, "decay": 5.5 },
+      "headshotMultiplier": 2.0, "structureMultiplier": 1.0,
+      "rarities": {
+        "common":   { "damage": 30, "weight": 8.0 },
+        "uncommon": { "damage": 31, "weight": 6.0 },
+        "rare":     { "damage": 32, "weight": 3.4 }
+      }
+    },
+    {
+      "id": "suppressed_ar", "name": "Suppressed Assault Rifle", "family": "ar", "class": "assault-rifle",
+      "model": "suppressed_ar", "ammo": "medium", "magSize": 30, "fireMode": "auto",
+      "rpm": 180, "reloadTime": 2.0, "range": 65, "bulletVelocity": 700, "suppressed": true,
+      "adsFov": 62, "recoil": { "vertical": 0.48, "horizontal": 0.24, "recovery": 8.0, "kick": 0.04 },
+      "spread": { "hip": 3.0, "ads": 0.5, "moving": 2.0, "crouch": -0.4, "bloomPerShot": 0.3, "maxBloom": 3.2, "decay": 4.8 },
+      "headshotMultiplier": 2.0, "structureMultiplier": 1.0,
+      "rarities": {
+        "uncommon": { "damage": 32, "weight": 3.6 },
+        "rare":     { "damage": 33, "weight": 2.4 }
+      }
+    },
+    {
+      "id": "pump", "name": "Pump Shotgun", "family": "shotgun", "class": "shotgun",
+      "model": "pump", "ammo": "shells", "magSize": 5, "fireMode": "pump",
+      "pumpTime": 0.85, "rpm": 70, "reloadTime": 0.66, "shellReload": true,
+      "pellets": 10, "range": 25, "falloffStart": 8, "falloffEnd": 22, "falloffMin": 0.25,
+      "bulletVelocity": 400, "adsFov": 68,
+      "recoil": { "vertical": 1.9, "horizontal": 0.5, "recovery": 5.0, "kick": 0.16 },
+      "spread": { "hip": 7.5, "ads": 5.6, "moving": 1.0, "crouch": -0.6, "bloomPerShot": 0.0, "maxBloom": 0.0, "decay": 1.0 },
+      "headshotMultiplier": 2.1, "structureMultiplier": 1.0,
+      "rarities": {
+        "common":    { "damage": 90,  "weight": 5.0 },
+        "uncommon":  { "damage": 95,  "weight": 4.0 },
+        "rare":      { "damage": 100, "weight": 2.6 },
+        "epic":      { "damage": 103, "weight": 1.4 },
+        "legendary": { "damage": 105, "weight": 0.7 }
+      }
+    },
+    {
+      "id": "tactical_shotgun", "name": "Tactical Shotgun", "family": "shotgun", "class": "shotgun",
+      "model": "tactical_shotgun", "ammo": "shells", "magSize": 8, "fireMode": "semi",
+      "rpm": 105, "reloadTime": 1.1, "shellReload": true,
+      "pellets": 10, "range": 22, "falloffStart": 7, "falloffEnd": 20, "falloffMin": 0.22,
+      "bulletVelocity": 400, "adsFov": 68,
+      "recoil": { "vertical": 1.2, "horizontal": 0.4, "recovery": 6.0, "kick": 0.11 },
+      "spread": { "hip": 6.2, "ads": 4.6, "moving": 0.9, "crouch": -0.5, "bloomPerShot": 0.0, "maxBloom": 0.0, "decay": 1.0 },
+      "headshotMultiplier": 2.1, "structureMultiplier": 1.0,
+      "rarities": {
+        "uncommon": { "damage": 67, "weight": 4.2 },
+        "rare":     { "damage": 70, "weight": 2.8 },
+        "epic":     { "damage": 72, "weight": 1.5 }
+      }
+    },
+    {
+      "id": "tactical_smg", "name": "Tactical SMG", "family": "smg", "class": "smg",
+      "model": "tactical_smg", "ammo": "light", "magSize": 35, "fireMode": "auto",
+      "rpm": 780, "reloadTime": 2.1, "range": 40, "bulletVelocity": 600, "adsFov": 65,
+      "recoil": { "vertical": 0.26, "horizontal": 0.22, "recovery": 11.0, "kick": 0.022 },
+      "spread": { "hip": 3.6, "ads": 1.2, "moving": 1.6, "crouch": -0.3, "bloomPerShot": 0.12, "maxBloom": 3.8, "decay": 6.0 },
+      "headshotMultiplier": 1.75, "structureMultiplier": 1.0,
+      "rarities": {
+        "uncommon": { "damage": 19, "weight": 4.4 },
+        "rare":     { "damage": 21, "weight": 2.8 }
+      }
+    },
+    {
+      "id": "minigun", "name": "Minigun", "family": "smg", "class": "heavy",
+      "model": "minigun", "ammo": "light", "magSize": 0, "fireMode": "auto",
+      "rpm": 700, "reloadTime": 0, "spinUpTime": 0.75, "overheatTime": 6.0, "cooldownTime": 4.0,
+      "range": 50, "bulletVelocity": 620, "adsFov": 70,
+      "recoil": { "vertical": 0.2, "horizontal": 0.3, "recovery": 12.0, "kick": 0.018 },
+      "spread": { "hip": 4.4, "ads": 3.0, "moving": 1.0, "crouch": -0.3, "bloomPerShot": 0.05, "maxBloom": 4.5, "decay": 3.0 },
+      "headshotMultiplier": 1.5, "structureMultiplier": 1.4,
+      "rarities": {
+        "epic":      { "damage": 18, "weight": 0.9 },
+        "legendary": { "damage": 18, "weight": 0.5 }
+      }
+    },
+    {
+      "id": "bolt_sniper", "name": "Bolt-Action Sniper Rifle", "family": "sniper", "class": "sniper",
+      "model": "bolt_sniper", "ammo": "heavy", "magSize": 1, "fireMode": "bolt",
+      "boltTime": 1.2, "rpm": 33, "reloadTime": 3.4, "range": 400, "bulletVelocity": 1600,
+      "bulletDrop": 0.0, "dropAfter": 300, "scoped": true, "scopeZoom": 4.5, "adsFov": 18,
+      "swayAmplitude": 0.35, "swaySpeed": 0.8,
+      "recoil": { "vertical": 2.6, "horizontal": 0.3, "recovery": 4.0, "kick": 0.2 },
+      "spread": { "hip": 9.0, "ads": 0.0, "moving": 3.0, "crouch": -1.0, "bloomPerShot": 0.0, "maxBloom": 0.0, "decay": 1.0 },
+      "headshotMultiplier": 2.5, "structureMultiplier": 1.0,
+      "rarities": {
+        "uncommon":  { "damage": 105, "weight": 2.2 },
+        "rare":      { "damage": 110, "weight": 1.5 },
+        "epic":      { "damage": 116, "weight": 0.9 },
+        "legendary": { "damage": 116, "weight": 0.45 }
+      }
+    },
+    {
+      "id": "semi_sniper", "name": "Semi-Auto Sniper Rifle", "family": "sniper", "class": "sniper",
+      "model": "semi_sniper", "ammo": "heavy", "magSize": 10, "fireMode": "semi",
+      "rpm": 75, "reloadTime": 3.0, "range": 350, "bulletVelocity": 1400,
+      "scoped": true, "scopeZoom": 3.5, "adsFov": 24, "swayAmplitude": 0.25, "swaySpeed": 0.9,
+      "recoil": { "vertical": 1.4, "horizontal": 0.25, "recovery": 5.5, "kick": 0.12 },
+      "spread": { "hip": 8.0, "ads": 0.1, "moving": 2.6, "crouch": -0.8, "bloomPerShot": 0.3, "maxBloom": 1.2, "decay": 3.0 },
+      "headshotMultiplier": 2.5, "structureMultiplier": 1.0,
+      "rarities": {
+        "uncommon": { "damage": 75, "weight": 2.0 },
+        "rare":     { "damage": 80, "weight": 1.3 }
+      }
+    },
+    {
+      "id": "hand_cannon", "name": "Hand Cannon", "family": "pistol", "class": "pistol",
+      "model": "hand_cannon", "ammo": "heavy", "magSize": 7, "fireMode": "semi",
+      "rpm": 60, "reloadTime": 2.1, "range": 90, "bulletVelocity": 900, "adsFov": 58,
+      "recoil": { "vertical": 2.2, "horizontal": 0.6, "recovery": 4.5, "kick": 0.15 },
+      "spread": { "hip": 4.5, "ads": 0.4, "moving": 2.6, "crouch": -0.6, "bloomPerShot": 1.4, "maxBloom": 5.0, "decay": 3.2 },
+      "headshotMultiplier": 2.0, "structureMultiplier": 1.6,
+      "rarities": {
+        "epic":      { "damage": 78, "weight": 1.5 },
+        "legendary": { "damage": 82, "weight": 0.8 }
+      }
+    },
+    {
+      "id": "pistol", "name": "Pistol", "family": "pistol", "class": "pistol",
+      "model": "pistol", "ammo": "light", "magSize": 16, "fireMode": "semi",
+      "rpm": 240, "reloadTime": 1.5, "range": 45, "bulletVelocity": 700, "adsFov": 62,
+      "recoil": { "vertical": 0.7, "horizontal": 0.3, "recovery": 8.5, "kick": 0.05 },
+      "spread": { "hip": 3.4, "ads": 0.6, "moving": 2.0, "crouch": -0.4, "bloomPerShot": 0.55, "maxBloom": 4.0, "decay": 4.0 },
+      "headshotMultiplier": 2.0, "structureMultiplier": 1.0,
+      "rarities": {
+        "common":   { "damage": 23, "weight": 9.0 },
+        "uncommon": { "damage": 25, "weight": 6.0 }
+      }
+    },
+    {
+      "id": "grenade_launcher", "name": "Grenade Launcher", "family": "explosive", "class": "explosive",
+      "model": "grenade_launcher", "ammo": "rockets", "magSize": 6, "fireMode": "semi",
+      "rpm": 60, "reloadTime": 3.1, "range": 200, "projectile": "grenade",
+      "projectileSpeed": 55, "gravity": 24, "bounciness": 0.45, "fuseTime": 2.5,
+      "explosionRadius": 6.0, "explosionDamage": 100, "structureMultiplier": 2.4, "adsFov": 66,
+      "recoil": { "vertical": 1.6, "horizontal": 0.3, "recovery": 5.0, "kick": 0.14 },
+      "spread": { "hip": 2.0, "ads": 0.5, "moving": 0.8, "crouch": -0.3, "bloomPerShot": 0.0, "maxBloom": 0.0, "decay": 1.0 },
+      "headshotMultiplier": 1.0,
+      "rarities": {
+        "uncommon":  { "damage": 100, "weight": 1.6 },
+        "rare":      { "damage": 100, "weight": 1.1 },
+        "epic":      { "damage": 105, "weight": 0.7 },
+        "legendary": { "damage": 110, "weight": 0.35 }
+      }
+    },
+    {
+      "id": "rpg", "name": "Rocket Launcher", "family": "explosive", "class": "explosive",
+      "model": "rpg", "ammo": "rockets", "magSize": 1, "fireMode": "semi",
+      "rpm": 30, "reloadTime": 3.2, "range": 300, "projectile": "rocket",
+      "projectileSpeed": 60, "gravity": 0, "fuseTime": 0, "impactDetonate": true,
+      "explosionRadius": 8.0, "explosionDamage": 121, "structureMultiplier": 3.0, "adsFov": 66,
+      "recoil": { "vertical": 2.4, "horizontal": 0.4, "recovery": 4.0, "kick": 0.22 },
+      "spread": { "hip": 1.2, "ads": 0.2, "moving": 0.6, "crouch": -0.2, "bloomPerShot": 0.0, "maxBloom": 0.0, "decay": 1.0 },
+      "headshotMultiplier": 1.0,
+      "rarities": {
+        "epic":      { "damage": 121, "weight": 0.8 },
+        "legendary": { "damage": 121, "weight": 0.4 }
+      }
+    }
+  ],
+  "throwables": [
+    {
+      "id": "frag_grenade", "name": "Grenade", "class": "throwable", "model": "frag",
+      "rarity": "common", "stackSize": 6, "cookable": true, "fuseTime": 4.0,
+      "throwSpeed": 22, "gravity": 24, "bounciness": 0.35,
+      "explosionRadius": 3.5, "outerRadius": 7.0, "explosionDamage": 100,
+      "structureMultiplier": 2.0, "weight": 3.2, "arcPreview": true
+    },
+    {
+      "id": "clinger", "name": "Clinger", "class": "throwable", "model": "clinger",
+      "rarity": "uncommon", "stackSize": 6, "cookable": false, "fuseTime": 2.5,
+      "throwSpeed": 26, "gravity": 22, "sticky": true,
+      "explosionRadius": 3.5, "outerRadius": 6.5, "explosionDamage": 100,
+      "structureMultiplier": 2.0, "weight": 1.6, "arcPreview": true
+    },
+    {
+      "id": "boogie_bomb", "name": "Boogie Bomb", "class": "throwable", "model": "boogie",
+      "rarity": "rare", "stackSize": 3, "cookable": false, "fuseTime": 1.2,
+      "throwSpeed": 24, "gravity": 24, "bounciness": 0.5,
+      "explosionRadius": 5.0, "explosionDamage": 0, "danceTime": 5.0,
+      "weight": 1.1, "arcPreview": true
+    }
+  ],
+  "consumables": [
+    {
+      "id": "medkit", "name": "Med Kit", "class": "consumable", "model": "medkit",
+      "rarity": "uncommon", "stackSize": 3, "useTime": 10.0,
+      "heal": 100, "healCap": 100, "target": "health", "instant": true, "weight": 2.4
+    },
+    {
+      "id": "bandage", "name": "Bandages", "class": "consumable", "model": "bandage",
+      "rarity": "common", "stackSize": 15, "useTime": 4.0,
+      "heal": 15, "healCap": 75, "target": "health", "instant": true, "weight": 5.0
+    },
+    {
+      "id": "shield_potion", "name": "Shield Potion", "class": "consumable", "model": "shield_potion",
+      "rarity": "rare", "stackSize": 3, "useTime": 5.0,
+      "heal": 50, "healCap": 100, "target": "shield", "instant": true, "weight": 3.6
+    },
+    {
+      "id": "mini_shield", "name": "Small Shield Potion", "class": "consumable", "model": "mini_shield",
+      "rarity": "uncommon", "stackSize": 6, "useTime": 2.0,
+      "heal": 25, "healCap": 50, "target": "shield", "instant": true, "weight": 5.4
+    },
+    {
+      "id": "slurp_juice", "name": "Slurp Juice", "class": "consumable", "model": "slurp",
+      "rarity": "epic", "stackSize": 2, "useTime": 1.0,
+      "heal": 75, "healCap": 100, "target": "both", "overTime": true,
+      "tickRate": 1.0, "tickAmount": 3, "duration": 25.0, "weight": 1.2
+    },
+    {
+      "id": "chug_jug", "name": "Chug Jug", "class": "consumable", "model": "chugjug",
+      "rarity": "legendary", "stackSize": 1, "useTime": 15.0,
+      "heal": 100, "healCap": 100, "target": "both", "instant": true, "weight": 0.35
+    }
+  ]
+}

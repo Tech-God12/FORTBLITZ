@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dead Drop — Battle Royale</title>
+    <link rel="stylesheet" href="./css/hud.css" />
+    <link rel="stylesheet" href="./css/menus.css" />
+  </head>
+  <body>
+    <canvas id="game-canvas"></canvas>
+
+    <!-- ============================================================ -->
+    <!-- Loading screen                                                -->
+    <!-- ============================================================ -->
+    <div id="loading-screen">
+      <div class="loading-inner">
+        <h1 class="game-logo">DEAD DROP</h1>
+        <div class="loading-sub">BATTLE ROYALE</div>
+        <div id="loading-track"><div id="loading-fill"></div></div>
+        <div id="loading-status">Initialising…</div>
+        <div id="loading-tip"></div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Main menu                                                     -->
+    <!-- ============================================================ -->
+    <div id="main-menu" class="menu-screen hud-hidden">
+      <div class="menu-bg-gradient"></div>
+      <div class="menu-content">
+        <h1 class="game-logo big">DEAD DROP</h1>
+        <div class="menu-tagline">100 PLAYERS. ONE ISLAND. ONE VICTORY ROYALE.</div>
+
+        <div class="menu-stats" id="menu-stats">
+          <div class="menu-stat"><span class="ms-value" id="stat-matches">0</span><span class="ms-label">MATCHES</span></div>
+          <div class="menu-stat"><span class="ms-value" id="stat-wins">0</span><span class="ms-label">WINS</span></div>
+          <div class="menu-stat"><span class="ms-value" id="stat-kills">0</span><span class="ms-label">ELIMS</span></div>
+        </div>
+
+        <button id="btn-play" class="fn-button primary">PLAY</button>
+        <div class="menu-row">
+          <button id="btn-settings" class="fn-button">SETTINGS</button>
+          <button id="btn-controls" class="fn-button">CONTROLS</button>
+        </div>
+        <div class="menu-version">v1.0 — Chapter 1 Recreation</div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Settings                                                      -->
+    <!-- ============================================================ -->
+    <div id="settings-menu" class="menu-screen hud-hidden">
+      <div class="panel">
+        <h2 class="panel-title">SETTINGS</h2>
+
+        <div class="setting-group"><h3>AUDIO</h3>
+          <label class="setting"><span>Master Volume</span><input type="range" id="set-master" min="0" max="100" value="80" /><span class="setting-value" id="val-master">80</span></label>
+          <label class="setting"><span>Effects</span><input type="range" id="set-sfx" min="0" max="100" value="100" /><span class="setting-value" id="val-sfx">100</span></label>
+          <label class="setting"><span>Ambient</span><input type="range" id="set-ambient" min="0" max="100" value="55" /><span class="setting-value" id="val-ambient">55</span></label>
+        </div>
+
+        <div class="setting-group"><h3>CONTROLS</h3>
+          <label class="setting"><span>Mouse Sensitivity</span><input type="range" id="set-sens" min="1" max="100" value="22" /><span class="setting-value" id="val-sens">22</span></label>
+          <label class="setting"><span>ADS Sensitivity</span><input type="range" id="set-adssens" min="10" max="100" value="65" /><span class="setting-value" id="val-adssens">65</span></label>
+          <label class="setting checkbox"><span>Invert Y Axis</span><input type="checkbox" id="set-invert" /></label>
+        </div>
+
+        <div class="setting-group"><h3>VIDEO</h3>
+          <label class="setting"><span>Field of View</span><input type="range" id="set-fov" min="70" max="110" value="80" /><span class="setting-value" id="val-fov">80</span></label>
+          <label class="setting checkbox"><span>Shadows</span><input type="checkbox" id="set-shadows" checked /></label>
+          <label class="setting checkbox"><span>Bloom &amp; Post FX</span><input type="checkbox" id="set-postfx" checked /></label>
+          <label class="setting checkbox"><span>Show FPS / Debug</span><input type="checkbox" id="set-debug" /></label>
+          <label class="setting"><span>Bot Count</span><input type="range" id="set-bots" min="9" max="99" value="99" /><span class="setting-value" id="val-bots">99</span></label>
+        </div>
+
+        <button id="btn-settings-back" class="fn-button">BACK</button>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Controls reference                                            -->
+    <!-- ============================================================ -->
+    <div id="controls-menu" class="menu-screen hud-hidden">
+      <div class="panel">
+        <h2 class="panel-title">CONTROLS</h2>
+        <div class="controls-grid">
+          <div class="ctrl-col">
+            <h3>MOVEMENT</h3>
+            <div class="ctrl"><kbd>W A S D</kbd><span>Move</span></div>
+            <div class="ctrl"><kbd>SHIFT</kbd><span>Sprint</span></div>
+            <div class="ctrl"><kbd>SPACE</kbd><span>Jump / Deploy Glider</span></div>
+            <div class="ctrl"><kbd>CTRL</kbd><span>Crouch</span></div>
+            <div class="ctrl"><kbd>Q</kbd><span>Swap Shoulder</span></div>
+          </div>
+          <div class="ctrl-col">
+            <h3>COMBAT</h3>
+            <div class="ctrl"><kbd>LMB</kbd><span>Fire / Swing Pickaxe</span></div>
+            <div class="ctrl"><kbd>RMB</kbd><span>Aim Down Sights</span></div>
+            <div class="ctrl"><kbd>R</kbd><span>Reload</span></div>
+            <div class="ctrl"><kbd>1 – 5</kbd><span>Inventory Slots</span></div>
+            <div class="ctrl"><kbd>WHEEL</kbd><span>Cycle Slots</span></div>
+            <div class="ctrl"><kbd>H</kbd><span>Drop Item</span></div>
+          </div>
+          <div class="ctrl-col">
+            <h3>BUILDING</h3>
+            <div class="ctrl"><kbd>B</kbd><span>Toggle Build Mode</span></div>
+            <div class="ctrl"><kbd>Z</kbd><span>Wall</span></div>
+            <div class="ctrl"><kbd>X</kbd><span>Floor</span></div>
+            <div class="ctrl"><kbd>V</kbd><span>Ramp</span></div>
+            <div class="ctrl"><kbd>N</kbd><span>Pyramid</span></div>
+            <div class="ctrl"><kbd>E</kbd><span>Edit Structure (hold)</span></div>
+            <div class="ctrl"><kbd>WHEEL</kbd><span>Change Material</span></div>
+          </div>
+          <div class="ctrl-col">
+            <h3>OTHER</h3>
+            <div class="ctrl"><kbd>F</kbd><span>Interact / Pick Up</span></div>
+            <div class="ctrl"><kbd>M</kbd><span>Map</span></div>
+            <div class="ctrl"><kbd>G</kbd><span>Emote</span></div>
+            <div class="ctrl"><kbd>O</kbd><span>Scoreboard</span></div>
+            <div class="ctrl"><kbd>ESC</kbd><span>Pause</span></div>
+          </div>
+        </div>
+        <button id="btn-controls-back" class="fn-button">BACK</button>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- In-game HUD                                                   -->
+    <!-- ============================================================ -->
+    <div id="hud" class="hud-hidden">
+      <div id="storm-damage-vignette"></div>
+
+      <!-- Kill feed -->
+      <div id="kill-feed"></div>
+
+      <!-- Minimap -->
+      <div id="minimap-container">
+        <canvas id="minimap" width="400" height="400"></canvas>
+        <div id="compass">N</div>
+      </div>
+
+      <div id="player-count">
+        <span id="alive-count">100</span>
+        <span class="alive-label">ALIVE</span>
+      </div>
+      <div id="kill-count-hud">
+        <span class="alive-label">ELIMS</span>
+        <span id="elim-count">0</span>
+      </div>
+
+      <!-- Storm warning -->
+      <div id="storm-warning">
+        <div id="storm-title">STORM MOVING</div>
+        <div id="storm-timer">0:00</div>
+        <div id="storm-subtitle"></div>
+      </div>
+
+      <div id="match-info"></div>
+
+      <!-- Crosshair -->
+      <div id="crosshair"></div>
+      <div id="hit-marker"></div>
+
+      <!-- Scope -->
+      <div id="scope-overlay">
+        <div class="scope-vignette"></div>
+        <svg class="scope-reticle" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(0,0,0,0.85)" stroke-width="3" />
+          <line x1="100" y1="0" x2="100" y2="78" stroke="#111" stroke-width="1.1" />
+          <line x1="100" y1="122" x2="100" y2="200" stroke="#111" stroke-width="1.1" />
+          <line x1="0" y1="100" x2="78" y2="100" stroke="#111" stroke-width="1.1" />
+          <line x1="122" y1="100" x2="200" y2="100" stroke="#111" stroke-width="1.1" />
+          <line x1="100" y1="92" x2="100" y2="108" stroke="#111" stroke-width="0.8" />
+          <line x1="92" y1="100" x2="108" y2="100" stroke="#111" stroke-width="0.8" />
+          <circle cx="100" cy="100" r="1.4" fill="#111" />
+          <g stroke="#111" stroke-width="0.7">
+            <line x1="96" y1="112" x2="104" y2="112" /><line x1="97" y1="124" x2="103" y2="124" />
+            <line x1="98" y1="136" x2="102" y2="136" /><line x1="96" y1="88" x2="104" y2="88" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Interaction -->
+      <div id="interact-prompt">
+        <span class="interact-key" id="interact-key">F</span>
+        <span id="interact-text">Pick Up</span>
+        <span id="interact-rarity"></span>
+      </div>
+
+      <div id="pickup-feed"></div>
+
+      <!-- Use progress -->
+      <div id="use-progress">
+        <div id="use-label">Using Med Kit</div>
+        <div id="use-track"><div id="use-fill"></div></div>
+      </div>
+
+      <!-- Vitals -->
+      <div id="vitals">
+        <div class="bar-row" id="shield-row">
+          <svg class="bar-icon" viewBox="0 0 24 24"><path d="M12 2 4 5.5v6c0 5 3.4 9.3 8 10.5 4.6-1.2 8-5.5 8-10.5v-6L12 2z" fill="#4488ff" stroke="#0a1a3a" stroke-width="1.5"/></svg>
+          <div class="bar-track"><div class="bar-fill" id="shield-fill"></div><div class="bar-flash" id="shield-flash"></div></div>
+          <div class="bar-value" id="shield-value">0</div>
+        </div>
+        <div class="bar-row">
+          <svg class="bar-icon" viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-10.4A4.6 4.6 0 0 1 12 7.4 4.6 4.6 0 0 1 20 10.6C20 15.8 12 21 12 21z" fill="#fff" stroke="#3a0a0a" stroke-width="1.5"/></svg>
+          <div class="bar-track"><div class="bar-fill" id="health-fill"></div><div class="bar-flash" id="health-flash"></div></div>
+          <div class="bar-value" id="health-value">100</div>
+        </div>
+      </div>
+
+      <!-- Materials -->
+      <div id="materials">
+        <div class="mat-row mat-wood" id="mat-wood">
+          <svg class="mat-icon" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="5" rx="1" fill="#c89b5a" stroke="#6b4a22" stroke-width="1.2"/><rect x="2" y="13" width="20" height="5" rx="1" fill="#b8894a" stroke="#6b4a22" stroke-width="1.2"/></svg>
+          <span class="mat-count" id="wood-count">0</span>
+        </div>
+        <div class="mat-row mat-brick" id="mat-brick">
+          <svg class="mat-icon" viewBox="0 0 24 24"><rect x="2" y="6" width="9" height="5" fill="#a8483a" stroke="#5c2018" stroke-width="1.2"/><rect x="13" y="6" width="9" height="5" fill="#98402f" stroke="#5c2018" stroke-width="1.2"/><rect x="2" y="13" width="20" height="5" fill="#a8483a" stroke="#5c2018" stroke-width="1.2"/></svg>
+          <span class="mat-count" id="brick-count">0</span>
+        </div>
+        <div class="mat-row mat-metal" id="mat-metal">
+          <svg class="mat-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5" fill="#9aa3ad" stroke="#464d55" stroke-width="1.3"/><circle cx="7" cy="9" r="1.2" fill="#5c636b"/><circle cx="17" cy="9" r="1.2" fill="#5c636b"/><circle cx="7" cy="15" r="1.2" fill="#5c636b"/><circle cx="17" cy="15" r="1.2" fill="#5c636b"/></svg>
+          <span class="mat-count" id="metal-count">0</span>
+        </div>
+      </div>
+
+      <!-- Ammo -->
+      <div id="ammo">
+        <svg id="ammo-icon" viewBox="0 0 40 24"></svg>
+        <div class="ammo-numbers">
+          <span id="ammo-mag">0</span><span id="ammo-sep">/</span><span id="ammo-reserve">0</span>
+        </div>
+        <div id="reload-hint">[R] RELOAD</div>
+        <div id="reload-bar"><div id="reload-bar-fill"></div></div>
+      </div>
+
+      <div id="build-indicator">BUILD MODE</div>
+
+      <!-- Inventory -->
+      <div id="inventory"></div>
+      <div id="build-bar"></div>
+
+      <!-- Drop / altimeter -->
+      <div id="drop-prompt">
+        <div id="drop-action">[SPACE] JUMP</div>
+        <div id="drop-sub"></div>
+      </div>
+      <div id="altimeter">
+        <div id="altitude-value">0</div>
+        <div id="altitude-label">METRES</div>
+      </div>
+
+      <div id="debug"></div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Full map screen                                               -->
+    <!-- ============================================================ -->
+    <div id="map-screen" class="hud-hidden">
+      <div class="map-frame">
+        <canvas id="map-canvas" width="1100" height="1100"></canvas>
+        <div class="map-legend">
+          <div class="map-title">DEAD DROP ISLAND</div>
+          <div class="map-hint">[M] CLOSE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Scoreboard                                                    -->
+    <!-- ============================================================ -->
+    <div id="scoreboard" class="hud-hidden">
+      <div class="panel">
+        <h2 class="panel-title">MATCH STANDINGS</h2>
+        <div id="scoreboard-list"></div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Victory / defeat                                              -->
+    <!-- ============================================================ -->
+    <div id="victory-screen" class="hud-hidden">
+      <div class="victory-rays"></div>
+      <div class="victory-content">
+        <div class="victory-hash">#1</div>
+        <h1 class="victory-title">VICTORY ROYALE</h1>
+        <div class="victory-sub">DEAD DROP CHAMPION</div>
+        <div class="victory-stats">
+          <div class="vstat"><span class="vs-value" id="vic-elims">0</span><span class="vs-label">ELIMINATIONS</span></div>
+          <div class="vstat"><span class="vs-value" id="vic-damage">0</span><span class="vs-label">DAMAGE DEALT</span></div>
+          <div class="vstat"><span class="vs-value" id="vic-time">0:00</span><span class="vs-label">SURVIVED</span></div>
+        </div>
+        <button id="btn-victory-continue" class="fn-button primary">CONTINUE</button>
+      </div>
+    </div>
+
+    <div id="death-screen" class="hud-hidden">
+      <div class="death-content">
+        <div class="death-place" id="death-place">#42</div>
+        <h1 class="death-title">ELIMINATED</h1>
+        <div class="death-by">
+          <span id="death-killer">—</span>
+          <svg id="death-weapon" viewBox="0 0 64 24"></svg>
+        </div>
+        <div class="victory-stats">
+          <div class="vstat"><span class="vs-value" id="death-elims">0</span><span class="vs-label">ELIMINATIONS</span></div>
+          <div class="vstat"><span class="vs-value" id="death-damage">0</span><span class="vs-label">DAMAGE DEALT</span></div>
+          <div class="vstat"><span class="vs-value" id="death-time">0:00</span><span class="vs-label">SURVIVED</span></div>
+        </div>
+        <div class="menu-row">
+          <button id="btn-death-spectate" class="fn-button">SPECTATE</button>
+          <button id="btn-death-lobby" class="fn-button primary">LOBBY</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Pause                                                         -->
+    <!-- ============================================================ -->
+    <div id="pause-menu" class="menu-screen hud-hidden">
+      <div class="panel narrow">
+        <h2 class="panel-title">PAUSED</h2>
+        <button id="btn-resume" class="fn-button primary">RESUME</button>
+        <button id="btn-pause-settings" class="fn-button">SETTINGS</button>
+        <button id="btn-quit" class="fn-button danger">QUIT TO LOBBY</button>
+      </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

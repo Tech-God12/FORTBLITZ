@@ -1,0 +1,961 @@
+/**
+ * hud.css — Fortnite-style HUD.
+ *
+ * Font rule: Boogaloo everywhere (self-hosted via @fontsource, no CDN).
+ * Barlow Condensed is the secondary face for dense numeric/log text.
+ * Zero system fonts anywhere in the UI.
+ */
+
+@import '@fontsource/boogaloo/400.css';
+@import '@fontsource/barlow-condensed/400.css';
+@import '@fontsource/barlow-condensed/600.css';
+
+:root {
+  --fn-font: 'Boogaloo', cursive;
+  --fn-font-alt: 'Barlow Condensed', sans-serif;
+
+  --fn-white: #ffffff;
+  --fn-coral: #ff6b9d;
+  --fn-gold: #ffd700;
+  --fn-blue: #4488ff;
+  --fn-red: #ff3b3b;
+  --fn-orange: #ff8a3d;
+
+  --rarity-common: #9e9e9e;
+  --rarity-uncommon: #4cd137;
+  --rarity-rare: #3a7bff;
+  --rarity-epic: #b14cff;
+  --rarity-legendary: #ffc93a;
+
+  --panel-bg: rgba(12, 18, 30, 0.62);
+  --panel-bg-solid: rgba(12, 18, 30, 0.88);
+  --panel-border: rgba(255, 255, 255, 0.22);
+
+  --hud-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+  --text-outline: -1px -1px 0 rgba(0, 0, 0, 0.55), 1px -1px 0 rgba(0, 0, 0, 0.55),
+    -1px 1px 0 rgba(0, 0, 0, 0.55), 1px 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b1220;
+  font-family: var(--fn-font);
+  color: var(--fn-white);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+#game-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: none;
+}
+
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  font-family: var(--fn-font);
+}
+
+.hud-hidden {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Health & shield (bottom centre-left)                                */
+/* ------------------------------------------------------------------ */
+
+#vitals {
+  position: absolute;
+  bottom: 118px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+}
+
+.bar-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  filter: drop-shadow(var(--hud-shadow));
+}
+
+.bar-track {
+  position: relative;
+  flex: 1;
+  height: 15px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: var(--hud-shadow);
+}
+
+.bar-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+#health-fill {
+  background: linear-gradient(180deg, #ffffff 0%, #dfe6ef 55%, #b8c4d4 100%);
+}
+
+#shield-fill {
+  background: linear-gradient(180deg, #8fc0ff 0%, #4488ff 55%, #2a63d0 100%);
+}
+
+/* White flash overlay used on damage / heal. */
+.bar-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bar-flash.flash-damage {
+  animation: barFlashRed 0.28s ease-out;
+}
+
+.bar-flash.flash-heal {
+  animation: barFlashGreen 0.35s ease-out;
+}
+
+@keyframes barFlashRed {
+  0% { opacity: 0.85; background: #ff3b3b; }
+  100% { opacity: 0; background: #ff3b3b; }
+}
+
+@keyframes barFlashGreen {
+  0% { opacity: 0.8; background: #6dff7a; }
+  100% { opacity: 0; background: #6dff7a; }
+}
+
+.bar-value {
+  min-width: 42px;
+  font-size: 21px;
+  line-height: 1;
+  text-align: right;
+  text-shadow: var(--text-outline);
+  letter-spacing: 0.5px;
+}
+
+#shield-row {
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+#shield-row.empty {
+  opacity: 0.28;
+}
+
+/* ------------------------------------------------------------------ */
+/* Materials (bottom left)                                             */
+/* ------------------------------------------------------------------ */
+
+#materials {
+  position: absolute;
+  left: 26px;
+  bottom: 118px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.mat-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: transform 0.12s;
+}
+
+.mat-row.mat-gain {
+  animation: matPop 0.3s ease-out;
+}
+
+@keyframes matPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+
+.mat-icon {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(var(--hud-shadow));
+}
+
+.mat-count {
+  font-size: 23px;
+  line-height: 1;
+  text-shadow: var(--text-outline);
+  min-width: 52px;
+}
+
+.mat-wood .mat-count { color: #e0b070; }
+.mat-brick .mat-count { color: #d98a72; }
+.mat-metal .mat-count { color: #cfd6e0; }
+
+/* Active build material gets a highlight. */
+.mat-row.active .mat-count {
+  color: #fff;
+  text-shadow: var(--text-outline), 0 0 10px currentColor;
+}
+
+/* ------------------------------------------------------------------ */
+/* Ammo (bottom right)                                                 */
+/* ------------------------------------------------------------------ */
+
+#ammo {
+  position: absolute;
+  right: 30px;
+  bottom: 118px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+#ammo-icon {
+  width: 34px;
+  height: 22px;
+  margin-bottom: 2px;
+  filter: drop-shadow(var(--hud-shadow));
+}
+
+.ammo-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  text-shadow: var(--text-outline);
+}
+
+#ammo-mag {
+  font-size: 34px;
+  line-height: 1;
+}
+
+#ammo-mag.empty {
+  color: var(--fn-red);
+  animation: ammoEmptyPulse 0.7s ease-in-out infinite;
+}
+
+@keyframes ammoEmptyPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+#ammo-reserve {
+  font-size: 21px;
+  opacity: 0.72;
+}
+
+#ammo-sep {
+  font-size: 21px;
+  opacity: 0.45;
+}
+
+#reload-hint {
+  font-size: 15px;
+  color: var(--fn-orange);
+  text-shadow: var(--text-outline);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+#reload-hint.show { opacity: 1; }
+
+/* Reload progress ring under the ammo counter. */
+#reload-bar {
+  width: 110px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+#reload-bar.show { opacity: 1; }
+
+#reload-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--fn-white);
+}
+
+/* ------------------------------------------------------------------ */
+/* Inventory bar (bottom centre)                                       */
+/* ------------------------------------------------------------------ */
+
+#inventory {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.inv-slot {
+  position: relative;
+  width: 70px;
+  height: 90px;
+  background: var(--panel-bg);
+  border: 3px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.11s cubic-bezier(0.2, 0.9, 0.3, 1.2), border-color 0.11s, box-shadow 0.11s;
+  backdrop-filter: blur(3px);
+}
+
+.inv-slot.active {
+  transform: scale(1.1) translateY(-4px);
+  border-color: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.55), 0 0 26px rgba(255, 255, 255, 0.22);
+  z-index: 2;
+}
+
+.inv-slot.empty .inv-icon { opacity: 0.12; }
+
+.slot-number {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  opacity: 0.72;
+  text-shadow: var(--text-outline);
+}
+
+.rarity-gem {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px currentColor;
+}
+
+.inv-icon {
+  width: 58px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7));
+}
+
+.inv-qty {
+  position: absolute;
+  bottom: 3px;
+  right: 6px;
+  font-size: 16px;
+  text-shadow: var(--text-outline);
+}
+
+.inv-name {
+  position: absolute;
+  bottom: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s;
+  text-shadow: var(--text-outline);
+}
+
+.inv-slot.active .inv-name { opacity: 0.9; }
+
+/* Rarity border colours applied by JS. */
+.rarity-common { border-color: var(--rarity-common); }
+.rarity-uncommon { border-color: var(--rarity-uncommon); }
+.rarity-rare { border-color: var(--rarity-rare); }
+.rarity-epic { border-color: var(--rarity-epic); }
+.rarity-legendary { border-color: var(--rarity-legendary); }
+
+/* ------------------------------------------------------------------ */
+/* Build mode piece selector                                           */
+/* ------------------------------------------------------------------ */
+
+#build-bar {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 8px;
+}
+
+#build-bar.show { display: flex; }
+
+.build-slot {
+  width: 66px;
+  height: 66px;
+  background: var(--panel-bg);
+  border: 3px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.1s, border-color 0.1s;
+}
+
+.build-slot.active {
+  transform: scale(1.1) translateY(-4px);
+  border-color: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+}
+
+.build-slot svg { width: 42px; height: 42px; }
+
+.build-key {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  opacity: 0.7;
+  text-shadow: var(--text-outline);
+}
+
+.build-cost {
+  position: absolute;
+  bottom: 2px;
+  right: 5px;
+  font-size: 13px;
+  opacity: 0.85;
+  text-shadow: var(--text-outline);
+}
+
+/* ------------------------------------------------------------------ */
+/* Minimap (top right)                                                 */
+/* ------------------------------------------------------------------ */
+
+#minimap-container {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 200px;
+  height: 200px;
+}
+
+#minimap {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.6), inset 0 0 22px rgba(0, 0, 0, 0.45);
+  background: #2b5c8a;
+}
+
+#compass {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+  color: var(--fn-white);
+  text-shadow: var(--text-outline);
+}
+
+/* ------------------------------------------------------------------ */
+/* Player count (top right, below minimap)                             */
+/* ------------------------------------------------------------------ */
+
+#player-count {
+  position: absolute;
+  top: 228px;
+  right: 18px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: var(--panel-bg);
+  border-radius: 5px;
+  padding: 5px 10px;
+  backdrop-filter: blur(3px);
+}
+
+#alive-count {
+  font-size: 30px;
+  line-height: 1;
+  text-shadow: var(--text-outline);
+}
+
+.alive-label {
+  font-size: 15px;
+  letter-spacing: 2.5px;
+  opacity: 0.82;
+  text-shadow: var(--text-outline);
+}
+
+#kill-count-hud {
+  position: absolute;
+  top: 272px;
+  right: 18px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  opacity: 0.9;
+  text-shadow: var(--text-outline);
+}
+
+/* ------------------------------------------------------------------ */
+/* Kill feed (top left)                                                */
+/* ------------------------------------------------------------------ */
+
+#kill-feed {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 400px;
+}
+
+.kill-entry {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 4px 9px;
+  font-family: var(--fn-font);
+  font-size: 15px;
+  animation: killSlide 0.25s ease-out;
+  text-shadow: var(--text-outline);
+}
+
+.kill-entry.fading { animation: killFade 0.6s ease-in forwards; }
+
+@keyframes killSlide {
+  from { opacity: 0; transform: translateX(-26px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes killFade {
+  to { opacity: 0; transform: translateX(-14px); }
+}
+
+.kill-name-self { color: var(--fn-gold); }
+.kill-weapon-icon { width: 26px; height: 15px; opacity: 0.95; }
+
+/* ------------------------------------------------------------------ */
+/* Crosshair & hit marker                                              */
+/* ------------------------------------------------------------------ */
+
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+#crosshair.show { opacity: 1; }
+
+.ch-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+.ch-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  margin: -1px 0 0 -1px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+#hit-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#hit-marker.hit { animation: hitPop 0.18s ease-out; }
+#hit-marker.headshot { animation: hitPopBig 0.22s ease-out; }
+#hit-marker.kill { animation: hitPopKill 0.32s ease-out; }
+
+@keyframes hitPop {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
+  35% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes hitPopBig {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.8); }
+  35% { opacity: 1; transform: translate(-50%, -50%) scale(1.4); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+@keyframes hitPopKill {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
+  40% { opacity: 1; transform: translate(-50%, -50%) scale(1.5) rotate(8deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7) rotate(12deg); }
+}
+
+/* Damage numbers floating off the target. */
+.damage-number {
+  position: absolute;
+  font-family: var(--fn-font);
+  font-size: 25px;
+  color: #fff;
+  text-shadow: var(--text-outline);
+  pointer-events: none;
+  animation: dmgFloat 0.85s ease-out forwards;
+}
+
+.damage-number.shield { color: #7fc4ff; }
+.damage-number.headshot { color: #ffd700; font-size: 33px; }
+
+@keyframes dmgFloat {
+  0% { opacity: 1; transform: translate(-50%, 0) scale(0.8); }
+  25% { transform: translate(-50%, -18px) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -62px) scale(1); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scope overlay (sniper ADS)                                          */
+/* ------------------------------------------------------------------ */
+
+#scope-overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  pointer-events: none;
+}
+
+#scope-overlay.show { display: block; }
+
+.scope-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0,
+    transparent 28vh,
+    rgba(0, 0, 0, 0.97) 28.6vh,
+    #000 100%
+  );
+}
+
+.scope-reticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56vh;
+  height: 56vh;
+}
+
+/* ------------------------------------------------------------------ */
+/* Storm warning (top centre)                                          */
+/* ------------------------------------------------------------------ */
+
+#storm-warning {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#storm-warning.show { opacity: 1; }
+
+#storm-title {
+  font-size: 25px;
+  color: var(--fn-orange);
+  letter-spacing: 2.5px;
+  text-shadow: var(--text-outline), 0 0 14px rgba(255, 120, 40, 0.65);
+}
+
+#storm-timer {
+  font-size: 21px;
+  color: #fff;
+  text-shadow: var(--text-outline);
+}
+
+#storm-subtitle {
+  font-size: 14px;
+  opacity: 0.85;
+  text-shadow: var(--text-outline);
+}
+
+/* Storm damage screen edge. */
+#storm-damage-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 42%, rgba(60, 90, 220, 0.55) 100%);
+  transition: opacity 0.3s;
+}
+
+#storm-damage-vignette.active { opacity: 1; }
+
+/* ------------------------------------------------------------------ */
+/* Interaction prompt                                                  */
+/* ------------------------------------------------------------------ */
+
+#interact-prompt {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-bg-solid);
+  border: 2px solid var(--panel-border);
+  border-radius: 5px;
+  padding: 7px 15px;
+  font-size: 17px;
+  text-shadow: var(--text-outline);
+  white-space: nowrap;
+}
+
+#interact-prompt.show { display: flex; }
+
+.interact-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  background: #fff;
+  color: #111;
+  border-radius: 4px;
+  font-size: 16px;
+  text-shadow: none;
+}
+
+#interact-rarity { font-size: 14px; opacity: 0.9; }
+
+/* Pickup toast list (bottom right above ammo). */
+#pickup-feed {
+  position: absolute;
+  right: 30px;
+  bottom: 200px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 5px;
+  align-items: flex-end;
+}
+
+.pickup-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  border-left: 4px solid var(--rarity-common);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 15px;
+  text-shadow: var(--text-outline);
+  animation: pickupSlide 0.25s ease-out;
+}
+
+.pickup-toast.fading { animation: pickupFade 0.5s ease-in forwards; }
+
+@keyframes pickupSlide {
+  from { opacity: 0; transform: translateX(26px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pickupFade {
+  to { opacity: 0; transform: translateX(14px); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Consumable / heal progress                                          */
+/* ------------------------------------------------------------------ */
+
+#use-progress {
+  position: absolute;
+  bottom: 210px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+#use-progress.show { display: flex; }
+
+#use-label {
+  font-size: 17px;
+  text-shadow: var(--text-outline);
+}
+
+#use-track {
+  width: 100%;
+  height: 9px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#use-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6dff7a, #3ad84a);
+  transition: width 0.08s linear;
+}
+
+/* ------------------------------------------------------------------ */
+/* Match info (top centre, small)                                      */
+/* ------------------------------------------------------------------ */
+
+#match-info {
+  position: absolute;
+  top: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.72;
+  text-shadow: var(--text-outline);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bus / skydive prompts                                               */
+/* ------------------------------------------------------------------ */
+
+#drop-prompt {
+  position: absolute;
+  bottom: 190px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  display: none;
+}
+
+#drop-prompt.show { display: block; }
+
+#drop-action {
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-shadow: var(--text-outline), 0 0 18px rgba(255, 255, 255, 0.45);
+  animation: dropPulse 1.1s ease-in-out infinite;
+}
+
+@keyframes dropPulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+#drop-sub { font-size: 16px; opacity: 0.85; text-shadow: var(--text-outline); }
+
+#altimeter {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+#altimeter.show { display: flex; }
+
+#altitude-value { font-size: 27px; text-shadow: var(--text-outline); }
+#altitude-label { font-size: 13px; opacity: 0.75; letter-spacing: 1.5px; }
+
+/* ------------------------------------------------------------------ */
+/* Build mode indicator                                                */
+/* ------------------------------------------------------------------ */
+
+#build-indicator {
+  position: absolute;
+  bottom: 118px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+  letter-spacing: 2.5px;
+  color: var(--fn-coral);
+  text-shadow: var(--text-outline);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+#build-indicator.show { opacity: 1; }
+
+/* ------------------------------------------------------------------ */
+/* Debug overlay                                                       */
+/* ------------------------------------------------------------------ */
+
+#debug {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--fn-font-alt);
+  font-size: 12px;
+  color: #9fe;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 9px;
+  border-radius: 4px;
+  white-space: pre;
+  display: none;
+  line-height: 1.45;
+}
+
+#debug.show { display: block; }
