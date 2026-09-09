@@ -1,0 +1,36 @@
+{
+  "name": "dead-drop",
+  "version": "1.0.0",
+  "description": "Dead Drop - a faithful Fortnite Chapter 1 style battle royale built on Three.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node server/index.js",
+    "start": "concurrently -n web,api -c cyan,magenta \"vite\" \"node server/index.js\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint client/js server test --ext .js",
+    "typecheck": "tsc --noEmit -p jsconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@fontsource/boogaloo": "^5.3.0",
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.2.1",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "eslint": "^10.10.0",
+    "playwright": "^1.63.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
+  },
+  "type": "module"
+}

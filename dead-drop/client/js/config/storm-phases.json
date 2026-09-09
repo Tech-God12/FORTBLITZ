@@ -1,0 +1,27 @@
+{
+  "mapSize": 4000,
+  "initialRadius": 2900,
+  "centerBias": 0.55,
+  "warnDistance": 200,
+  "phases": [
+    { "phase": 0, "waitTime": 20.0, "shrinkTime": 0.0,  "damage": 0.0,  "radiusFactor": 1.00, "label": "Preparing" },
+    { "phase": 1, "waitTime": 120.0, "shrinkTime": 180.0, "damage": 1.0,  "radiusFactor": 0.60, "label": "Storm Phase 1" },
+    { "phase": 2, "waitTime": 120.0, "shrinkTime": 150.0, "damage": 1.0,  "radiusFactor": 0.40, "label": "Storm Phase 2" },
+    { "phase": 3, "waitTime": 90.0,  "shrinkTime": 120.0, "damage": 2.0,  "radiusFactor": 0.25, "label": "Storm Phase 3" },
+    { "phase": 4, "waitTime": 90.0,  "shrinkTime": 90.0,  "damage": 2.0,  "radiusFactor": 0.15, "label": "Storm Phase 4" },
+    { "phase": 5, "waitTime": 60.0,  "shrinkTime": 60.0,  "damage": 3.0,  "radiusFactor": 0.08, "label": "Storm Phase 5" },
+    { "phase": 6, "waitTime": 45.0,  "shrinkTime": 60.0,  "damage": 5.0,  "radiusFactor": 0.03, "label": "Storm Phase 6" },
+    { "phase": 7, "waitTime": 30.0,  "shrinkTime": 45.0,  "damage": 10.0, "radiusFactor": 0.00, "label": "Final Storm" }
+  ],
+  "damageTickRate": 1.0,
+  "visual": {
+    "wallColor": "#1A2A8C",
+    "wallOpacity": 0.7,
+    "innerEdgeColor": "#6A8AFF",
+    "particleInwardSpeed": 0.5,
+    "insideFogDistance": 60,
+    "insideTint": "#3A5AD0",
+    "wallHeight": 400,
+    "segments": 128
+  }
+}

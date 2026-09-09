@@ -1,0 +1,62 @@
+{
+  "sources": {
+    "chest": {
+      "itemCount": [2, 3],
+      "guaranteedAmmo": 2,
+      "guaranteedConsumableChance": 0.55,
+      "rarityWeights": { "common": 12, "uncommon": 30, "rare": 32, "epic": 18, "legendary": 8 },
+      "categoryWeights": { "weapon": 62, "consumable": 26, "throwable": 12 }
+    },
+    "floor": {
+      "itemCount": [1, 1],
+      "guaranteedAmmo": 0,
+      "guaranteedConsumableChance": 0.0,
+      "rarityWeights": { "common": 46, "uncommon": 32, "rare": 16, "epic": 5, "legendary": 1 },
+      "categoryWeights": { "weapon": 52, "consumable": 30, "throwable": 8, "ammo": 10 }
+    },
+    "supply_drop": {
+      "itemCount": [4, 5],
+      "guaranteedAmmo": 3,
+      "guaranteedConsumableChance": 1.0,
+      "rarityWeights": { "common": 0, "uncommon": 0, "rare": 14, "epic": 46, "legendary": 40 },
+      "categoryWeights": { "weapon": 55, "consumable": 33, "throwable": 12 }
+    },
+    "elimination": {
+      "itemCount": [0, 0],
+      "dropsInventory": true,
+      "ammoRetention": 1.0,
+      "materialRetention": 0.5
+    }
+  },
+  "ammoDropWeights": { "light": 30, "medium": 30, "heavy": 16, "shells": 20, "rockets": 4 },
+  "biomeModifiers": {
+    "urban":      { "weapon": 1.15, "consumable": 0.95, "rarityBoost": 0.12 },
+    "suburban":   { "weapon": 1.0,  "consumable": 1.1,  "rarityBoost": 0.0 },
+    "retail":     { "weapon": 1.05, "consumable": 1.15, "rarityBoost": 0.05 },
+    "industrial": { "weapon": 1.0,  "consumable": 0.9,  "rarityBoost": 0.04, "ammoBonus": 1.6 },
+    "farm":       { "weapon": 0.95, "consumable": 1.2,  "rarityBoost": -0.02 },
+    "forest":     { "weapon": 0.9,  "consumable": 1.15, "rarityBoost": 0.0 },
+    "deepforest": { "weapon": 0.9,  "consumable": 1.25, "rarityBoost": 0.02 },
+    "swamp":      { "weapon": 0.92, "consumable": 1.2,  "rarityBoost": 0.0 },
+    "town":       { "weapon": 1.0,  "consumable": 1.05, "rarityBoost": 0.02 },
+    "estates":    { "weapon": 1.05, "consumable": 1.0,  "rarityBoost": 0.1 },
+    "water":      { "weapon": 0.85, "consumable": 1.1,  "rarityBoost": 0.06 },
+    "wild":       { "weapon": 0.8,  "consumable": 1.0,  "rarityBoost": -0.05 }
+  },
+  "chestSpawnChance": 0.72,
+  "floorLootSpawnChance": 0.85,
+  "wildFloorLootCount": 260,
+  "wildChestCount": 48,
+  "supplyDrops": {
+    "firstPhase": 3,
+    "perPhase": [0, 0, 0, 2, 2, 1, 1, 0],
+    "fallSpeed": 6.5,
+    "spawnHeight": 320,
+    "balloonRadius": 4.0
+  },
+  "consumableWeights": {
+    "bandage": 26, "mini_shield": 26, "shield_potion": 16,
+    "medkit": 14, "slurp_juice": 12, "chug_jug": 6
+  },
+  "throwableWeights": { "frag_grenade": 52, "clinger": 30, "boogie_bomb": 18 }
+}

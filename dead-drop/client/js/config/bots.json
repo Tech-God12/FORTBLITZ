@@ -1,0 +1,35 @@
+{
+  "totalPlayers": 100,
+  "difficultyDistribution": { "easy": 0.45, "normal": 0.4, "hard": 0.15 },
+  "difficulties": {
+    "easy":   { "accuracy": 0.25, "reactionTime": 2.0, "aimSpeed": 2.2, "leadFactor": 0.4, "buildSkill": 0.15, "healThreshold": 40, "engageRange": 70,  "pushChance": 0.2,  "burstLength": [3, 6] },
+    "normal": { "accuracy": 0.45, "reactionTime": 1.0, "aimSpeed": 4.5, "leadFactor": 0.75, "buildSkill": 0.5,  "healThreshold": 45, "engageRange": 95,  "pushChance": 0.45, "burstLength": [4, 8] },
+    "hard":   { "accuracy": 0.65, "reactionTime": 0.4, "aimSpeed": 7.5, "leadFactor": 1.0,  "buildSkill": 0.9,  "healThreshold": 55, "engageRange": 120, "pushChance": 0.7,  "burstLength": [5, 10] }
+  },
+  "detectionRange": 120,
+  "hearingRange": 90,
+  "pathUpdateHz": 2,
+  "thinkHz": 8,
+  "farSimulationDistance": 350,
+  "farSimulationHz": 1,
+  "states": [
+    "BUS", "SKYDIVE", "GLIDE", "LAND", "LOOT", "ROTATE", "ENGAGE",
+    "TAKE_COVER", "BUILD_DEFEND", "HEAL", "FLEE_STORM", "HARVEST", "DEAD"
+  ],
+  "lootPriority": ["weapon_primary", "ammo", "shield", "health", "throwable", "weapon_secondary"],
+  "stormSafetyMargin": 90,
+  "stormPanicMargin": 30,
+  "maxLootTimeAfterLanding": 60,
+  "namePool": [
+    "Bl1tzR0gue", "SaltyTilted", "NoScopeNate", "RampRusher", "CozyCamper",
+    "TacTicalTom", "BuildGodBex", "LootLlamaLuke", "PumpKing", "ShieldSipper",
+    "StormChaser", "HighGroundHal", "ClutchQueen", "DubHunter", "SprayNPrayJay",
+    "BoxFightBen", "MatsMaxine", "GoldenScarSam", "ChugJugChad", "SneakySnipes",
+    "EditWizard", "TurtleTony", "WallTakerWes", "PhaseRunner", "SoloSquadSid",
+    "TripleTakeTia", "BounceBoi", "CraniumCrusher", "ZoneRotator", "MetalMaven",
+    "FirstBloodFin", "LastCircleLee", "AimBotAva", "TiltedTerror", "SkyDiveSkye",
+    "GliderGus", "MedKitMiles", "GrenadeGreta", "RocketRandy", "MinigunMo",
+    "TacSMGTess", "BoltActionBo", "HandCannonHank", "SuppressedSue", "BurstBrady",
+    "SlurpSlayer", "BandageBella", "CarbonCarl", "VaultVince", "DeadDropDean"
+  ]
+}

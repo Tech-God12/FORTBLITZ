@@ -1,0 +1,527 @@
+{
+  "worldSize": 4000,
+  "halfSize": 2000,
+  "seaLevel": 0,
+  "maxElevation": 160,
+  "heightmapResolution": 2048,
+  "terrainChunks": 16,
+  "chunkVerts": 65,
+  "foliageCount": 12000,
+  "roadWidth": 8,
+  "hubRoadWidth": 12,
+  "terrainLayers": [
+    {
+      "id": "oceanfloor",
+      "color": "#6B6248",
+      "heightMax": -2.0,
+      "slopeMax": 90,
+      "tiling": 40
+    },
+    {
+      "id": "sand",
+      "color": "#D9C48A",
+      "heightMax": 4.0,
+      "slopeMax": 35,
+      "tiling": 60
+    },
+    {
+      "id": "grass",
+      "color": "#4A8C2A",
+      "heightMax": 70.0,
+      "slopeMax": 32,
+      "tiling": 90
+    },
+    {
+      "id": "forest",
+      "color": "#35661F",
+      "heightMax": 100.0,
+      "slopeMax": 34,
+      "tiling": 80
+    },
+    {
+      "id": "highland",
+      "color": "#7D9142",
+      "heightMax": 200.0,
+      "slopeMax": 36,
+      "tiling": 70
+    },
+    {
+      "id": "rock",
+      "color": "#7A7469",
+      "heightMax": 999.0,
+      "slopeMax": 90,
+      "tiling": 45
+    }
+  ],
+  "namedLocations": [
+    {
+      "id": "shattered_spires",
+      "name": "Shattered Spires",
+      "analog": "Tilted Towers",
+      "x": -520,
+      "z": -140,
+      "radius": 190,
+      "elevation": 34,
+      "flatten": 1.0,
+      "risk": "extreme",
+      "lootDensity": 1.0,
+      "chests": 22,
+      "floorLoot": 46,
+      "biome": "urban",
+      "labelSize": 1.25,
+      "description": "Dense urban core of grey concrete and glass. Six multi-story buildings, all enterable."
+    },
+    {
+      "id": "meadow_heights",
+      "name": "Meadow Heights",
+      "analog": "Pleasant Park",
+      "x": -420,
+      "z": -840,
+      "radius": 175,
+      "elevation": 26,
+      "flatten": 0.95,
+      "risk": "medium",
+      "lootDensity": 0.72,
+      "chests": 14,
+      "floorLoot": 30,
+      "biome": "suburban",
+      "labelSize": 1.1,
+      "description": "Suburban ring of six unique houses around a soccer field."
+    },
+    {
+      "id": "commerce_strip",
+      "name": "Commerce Strip",
+      "analog": "Retail Row",
+      "x": 760,
+      "z": 120,
+      "radius": 165,
+      "elevation": 22,
+      "flatten": 1.0,
+      "risk": "high",
+      "lootDensity": 0.82,
+      "chests": 16,
+      "floorLoot": 34,
+      "biome": "retail",
+      "labelSize": 1.1,
+      "description": "Strip mall of seven shop units fronted by a parking lot."
+    },
+    {
+      "id": "pine_ridge",
+      "name": "Pine Ridge",
+      "analog": "Lonely Lodge",
+      "x": 1420,
+      "z": -180,
+      "radius": 150,
+      "elevation": 48,
+      "flatten": 0.75,
+      "risk": "low",
+      "lootDensity": 0.6,
+      "chests": 12,
+      "floorLoot": 22,
+      "biome": "forest",
+      "labelSize": 1.0,
+      "description": "Ranger station, four cabins and a climbable observation tower in conifer forest."
+    },
+    {
+      "id": "mirror_lake",
+      "name": "Mirror Lake",
+      "analog": "Loot Lake",
+      "x": -120,
+      "z": -480,
+      "radius": 280,
+      "elevation": -6,
+      "flatten": 0.85,
+      "risk": "medium",
+      "lootDensity": 0.5,
+      "chests": 8,
+      "floorLoot": 14,
+      "biome": "water",
+      "labelSize": 1.15,
+      "isLake": true,
+      "waterLevel": 2.0,
+      "description": "Wide blue lake with a lone island house reached by a bridge."
+    },
+    {
+      "id": "freight_yards",
+      "name": "Freight Yards",
+      "analog": "Dusty Depot",
+      "x": 340,
+      "z": 240,
+      "radius": 160,
+      "elevation": 20,
+      "flatten": 1.0,
+      "risk": "medium",
+      "lootDensity": 0.76,
+      "chests": 14,
+      "floorLoot": 32,
+      "biome": "industrial",
+      "labelSize": 1.05,
+      "description": "Three corrugated warehouses beside a decorative rail line. Heavy ammo concentration."
+    },
+    {
+      "id": "harvest_hollow",
+      "name": "Harvest Hollow",
+      "analog": "Fatal Fields",
+      "x": 180,
+      "z": 980,
+      "radius": 185,
+      "elevation": 18,
+      "flatten": 0.9,
+      "risk": "medium",
+      "lootDensity": 0.68,
+      "chests": 13,
+      "floorLoot": 28,
+      "biome": "farm",
+      "labelSize": 1.05,
+      "description": "Red barn with hay loft, two-story farmhouse and three silos among crop rows."
+    },
+    {
+      "id": "pump_works",
+      "name": "Pump Works",
+      "analog": "Flush Factory",
+      "x": -420,
+      "z": 1320,
+      "radius": 150,
+      "elevation": 14,
+      "flatten": 1.0,
+      "risk": "medium",
+      "lootDensity": 0.66,
+      "chests": 12,
+      "floorLoot": 26,
+      "biome": "industrial",
+      "labelSize": 1.0,
+      "description": "Water pump facility: catwalks, industrial piping, two outbuildings."
+    },
+    {
+      "id": "grove_crossing",
+      "name": "Grove Crossing",
+      "analog": "Greasy Grove",
+      "x": -1180,
+      "z": 420,
+      "radius": 165,
+      "elevation": 24,
+      "flatten": 0.95,
+      "risk": "medium",
+      "lootDensity": 0.7,
+      "chests": 13,
+      "floorLoot": 28,
+      "biome": "town",
+      "labelSize": 1.05,
+      "description": "Small-town diner, gas station, shop and five tree-lined houses."
+    },
+    {
+      "id": "highcliff_estates",
+      "name": "Highcliff Estates",
+      "analog": "Snobby Shores",
+      "x": -1620,
+      "z": -260,
+      "radius": 170,
+      "elevation": 62,
+      "flatten": 0.9,
+      "risk": "medium",
+      "lootDensity": 0.74,
+      "chests": 15,
+      "floorLoot": 26,
+      "biome": "estates",
+      "labelSize": 1.05,
+      "description": "Five cream-stone mansions with pools along the western cliff edge."
+    },
+    {
+      "id": "whisper_woods",
+      "name": "Whisper Woods",
+      "analog": "Wailing Woods",
+      "x": 1220,
+      "z": -1080,
+      "radius": 220,
+      "elevation": 117,
+      "flatten": 0.62,
+      "risk": "low",
+      "lootDensity": 0.56,
+      "chests": 12,
+      "floorLoot": 20,
+      "biome": "deepforest",
+      "labelSize": 1.05,
+      "hedgeMaze": true,
+      "description": "Claustrophobic hedge maze at the heart of the densest forest on the island."
+    },
+    {
+      "id": "northfield_farm",
+      "name": "Northfield Farm",
+      "analog": "Anarchy Acres",
+      "x": 120,
+      "z": -1340,
+      "radius": 190,
+      "elevation": 22,
+      "flatten": 0.92,
+      "risk": "low",
+      "lootDensity": 0.6,
+      "chests": 12,
+      "floorLoot": 24,
+      "biome": "farm",
+      "labelSize": 1.0,
+      "description": "Open farmland under a windmill silhouette. Barns, pens and a parked tractor."
+    },
+    {
+      "id": "bogwater_basin",
+      "name": "Bogwater Basin",
+      "analog": "Moisty Mire",
+      "x": 1100,
+      "z": 1160,
+      "radius": 230,
+      "elevation": 6,
+      "flatten": 0.7,
+      "risk": "low",
+      "lootDensity": 0.58,
+      "chests": 11,
+      "floorLoot": 22,
+      "biome": "swamp",
+      "labelSize": 1.05,
+      "swamp": true,
+      "description": "Abandoned film studio lot sinking into swamp water."
+    },
+    {
+      "id": "tomato_junction",
+      "name": "Tomato Junction",
+      "analog": "Tomato Town",
+      "x": 700,
+      "z": -820,
+      "radius": 145,
+      "elevation": 40,
+      "flatten": 0.85,
+      "risk": "medium",
+      "lootDensity": 0.64,
+      "chests": 11,
+      "floorLoot": 22,
+      "biome": "town",
+      "labelSize": 1.0,
+      "landmark": "giant_tomato",
+      "description": "Route 66 diner under a giant tomato sign, beside a drivable tunnel."
+    }
+  ],
+  "minorPOIs": [
+    {
+      "id": "west_beach",
+      "name": "West Beach",
+      "x": -1850,
+      "z": 780,
+      "radius": 120,
+      "type": "beach"
+    },
+    {
+      "id": "east_cliffs",
+      "name": "East Cliffs",
+      "x": 1780,
+      "z": 420,
+      "radius": 140,
+      "type": "cliff"
+    },
+    {
+      "id": "north_ravine",
+      "name": "North Ravine",
+      "x": -120,
+      "z": -1000,
+      "radius": 160,
+      "type": "ravine"
+    },
+    {
+      "id": "south_docks",
+      "name": "South Docks",
+      "x": -900,
+      "z": 1700,
+      "radius": 110,
+      "type": "docks"
+    },
+    {
+      "id": "radio_hill",
+      "name": "Radio Hill",
+      "x": 1500,
+      "z": -1600,
+      "radius": 130,
+      "type": "hill"
+    },
+    {
+      "id": "riverside_camp",
+      "name": "Riverside Camp",
+      "x": -820,
+      "z": -180,
+      "radius": 90,
+      "type": "camp"
+    },
+    {
+      "id": "quarry",
+      "name": "The Quarry",
+      "x": 900,
+      "z": 620,
+      "radius": 130,
+      "type": "quarry"
+    },
+    {
+      "id": "lighthouse",
+      "name": "Lighthouse",
+      "x": -1720,
+      "z": -1150,
+      "radius": 80,
+      "type": "landmark"
+    }
+  ],
+  "roads": [
+    {
+      "from": "shattered_spires",
+      "to": "meadow_heights"
+    },
+    {
+      "from": "shattered_spires",
+      "to": "mirror_lake"
+    },
+    {
+      "from": "shattered_spires",
+      "to": "grove_crossing"
+    },
+    {
+      "from": "shattered_spires",
+      "to": "pump_works"
+    },
+    {
+      "from": "meadow_heights",
+      "to": "northfield_farm"
+    },
+    {
+      "from": "meadow_heights",
+      "to": "mirror_lake"
+    },
+    {
+      "from": "northfield_farm",
+      "to": "tomato_junction"
+    },
+    {
+      "from": "tomato_junction",
+      "to": "whisper_woods"
+    },
+    {
+      "from": "tomato_junction",
+      "to": "freight_yards"
+    },
+    {
+      "from": "whisper_woods",
+      "to": "pine_ridge"
+    },
+    {
+      "from": "pine_ridge",
+      "to": "commerce_strip"
+    },
+    {
+      "from": "commerce_strip",
+      "to": "freight_yards"
+    },
+    {
+      "from": "commerce_strip",
+      "to": "bogwater_basin"
+    },
+    {
+      "from": "freight_yards",
+      "to": "mirror_lake"
+    },
+    {
+      "from": "freight_yards",
+      "to": "harvest_hollow"
+    },
+    {
+      "from": "harvest_hollow",
+      "to": "bogwater_basin"
+    },
+    {
+      "from": "harvest_hollow",
+      "to": "pump_works"
+    },
+    {
+      "from": "pump_works",
+      "to": "grove_crossing"
+    },
+    {
+      "from": "grove_crossing",
+      "to": "highcliff_estates"
+    },
+    {
+      "from": "highcliff_estates",
+      "to": "meadow_heights"
+    }
+  ],
+  "terrainFeatures": {
+    "lake": {
+      "x": -120,
+      "z": -480,
+      "radius": 280,
+      "depth": 22,
+      "waterLevel": 2.0
+    },
+    "river": {
+      "points": [
+        [
+          -120,
+          -480
+        ],
+        [
+          -560,
+          -330
+        ],
+        [
+          -1000,
+          -140
+        ],
+        [
+          -1420,
+          80
+        ],
+        [
+          -1750,
+          240
+        ],
+        [
+          -1980,
+          330
+        ]
+      ],
+      "width": 34,
+      "depth": 8
+    },
+    "ridge": {
+      "x": 1220,
+      "z": -1080,
+      "radius": 700,
+      "height": 150
+    },
+    "cliffs": {
+      "side": "east",
+      "x": 1800,
+      "dropStart": 1650,
+      "height": 70
+    },
+    "beach": {
+      "side": "west",
+      "x": -1800,
+      "gradientStart": -1550
+    },
+    "ravine": {
+      "points": [
+        [
+          -500,
+          -1050
+        ],
+        [
+          -120,
+          -980
+        ],
+        [
+          280,
+          -1080
+        ],
+        [
+          640,
+          -1240
+        ]
+      ],
+      "width": 90,
+      "depth": 42
+    }
+  }
+}
